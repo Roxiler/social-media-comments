@@ -1,0 +1,28 @@
+.textBox{
+  margin-top: 20px;
+  // border: 1px solid green;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  .commentInput{
+    height: 50px;
+    width:250px ;
+  font-size: 16px;
+  transition: 0.6s;
+  border: none;
+  border-bottom: 1px solid #CCC;
+  background-color: transparent;
+    &:focus {
+    outline: none;
+    border-bottom: 1px solid #a19f9f;
+  }
+  }
+
+  .button{
+    height: 40px;
+  }
+}
+
+
+
