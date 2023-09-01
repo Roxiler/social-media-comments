@@ -1,0 +1,14 @@
+.comment-box {
+    border-left: solid red 1px;
+
+    .comment {
+        padding: .5em;
+        background-color: rgb(103, 134, 124);
+        margin: .5em 0;
+        border-radius: 0.25em;
+    }
+
+    .nested_comment {
+        margin-left: .5em;
+    }
+}
