@@ -10,7 +10,7 @@ export const useCommentTextbox = () => {
     const response = {
       id: 11,
       userName: "AAAA",
-      value: "New comment added",
+      value: comment,
       comments: [
         {
           id: 22,
