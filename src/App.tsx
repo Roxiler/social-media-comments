@@ -71,7 +71,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div style={{marginLeft: '100px'}}>
         <div>
           <Comments comments={comments} />
         </div>

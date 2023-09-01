@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconProps } from './Icon.types';
+import { IconProps } from '../Icon.types';
 
 const Home = ({color,size=30}:IconProps) => (
   <svg

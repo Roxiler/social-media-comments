@@ -12,7 +12,13 @@ export const Comments = (props: Props) => {
 
     return (
         <div>
-            <CommentsList commentData={commentsData} setCommentData={setCommentsData} />
+            <CommentsList 
+                commentData={commentsData} 
+                setCommentData={setCommentsData}
+                showCommentReplies={() => console.log("Function to handle show replies on the comment")}
+                editComment={() => console.log("Edit the current comment")}
+                deleteComment={() => console.log("Delete the current comment")}
+            />
         </div>
     )
 }
