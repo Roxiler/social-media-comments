@@ -7,7 +7,7 @@ interface ICommentList {
   commentData: any[];
   setCommentData: React.Dispatch<React.SetStateAction<any[]>>;
   showCommentReplies?: any;
-  editComment?: any;
+  editComment: any;
   deleteComment?: any;
   makeComment?: any;
   loggedInUserId: number;
@@ -40,6 +40,7 @@ export const CommentsList = (props: ICommentList) => {
                     deleteComment={props.deleteComment}
                     loggedInUserId={props.loggedInUserId}
                     makeComment={props.makeComment}
+                    commentId={comment.id}
                   />
                 // </>
               );

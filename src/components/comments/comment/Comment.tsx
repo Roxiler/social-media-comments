@@ -8,20 +8,34 @@ import EditIcon from "../../icons/edit-icon/EditIcon";
 import CommentsIcon from "../../icons/comment-icon/CommentIcon";
 import DeleteIcon from "../../icons/delete-icon/DeleteIcon";
 import CommentsTextbox from "../comment-textbox/CommentsTextbox";
+import CancelIcon from "../../icons/cancel-icon/CancelIcon";
+import SaveIcon from "../../icons/save-icon/SaveIcon";
 
 interface IComment {
   data: string;
   comments: any[];
   showReplies?: any;
-  editComment?: any;
+  editComment: any;
   deleteComment?: any;
   makeComment?: any;
   loggedInUserId: number;
+  commentId: number;
 }
 
 const Comment = (props: IComment) => {
-  const { replies, handleShowReplies, isRepliesOpen, handleAddComment } =
-    useComments();
+  const {
+    commentText,
+    replies,
+    handleShowReplies,
+    isRepliesOpen,
+    handleAddComment,
+    handleEditReply,
+    commentToEdit,
+    setEditCommentText,
+    editCommentText,
+    handleSaveReply,
+    handleEditText
+  } = useComments(props);
 
   return (
     <div>
@@ -38,18 +52,48 @@ const Comment = (props: IComment) => {
             );
           })}
         </div> */}
-        <div className="comment__text">{props.data}</div>
-        <div className="comment__actions">
-          <div onClick={() => handleShowReplies(props.showReplies, 1)}>
-            <CommentsIcon />
-          </div>
-          <div>
-            <EditIcon />
-          </div>
-          <div>
-            <DeleteIcon />
-          </div>
+        {!commentToEdit ? (
+          <>
+            <div className="comment__text">{commentText}</div>
+            <div className="comment__actions">
+              <div onClick={() => handleShowReplies(props.showReplies, 1)}>
+                <CommentsIcon />
+              </div>
+              <div onClick={() => handleEditReply(props.commentId)}>
+                <EditIcon />
+              </div>
+              <div>
+                <DeleteIcon />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="input-wrapper">
+            <input
+                type="text"
+                // placeholder='add comment...'
+                value={commentText}
+                onChange={(e) => handleEditText(e.target.value)}
+                onKeyUp={(e) => {
+                    if (e.code !== "Enter") return
+                    setEditCommentText(editCommentText);
+                    // props.setCommentData(prev => [...prev, { value: comment, comments: [] }]);
+                    // addComment("")
+                }}
+            />
         </div>
+        <div className="comment__actions">
+              <div onClick={() => handleSaveReply(commentToEdit)}>
+                <SaveIcon />
+              </div>
+              <div onClick={() => handleEditReply(null)}>
+                <CancelIcon />
+              </div>
+            </div>
+          </>
+        )}
+
         <div className="comment__replies">
           {isRepliesOpen && replies.length > 0 && (
             <div>
@@ -71,6 +115,7 @@ const Comment = (props: IComment) => {
                     deleteComment={props.deleteComment}
                     makeComment={props.makeComment}
                     loggedInUserId={props.loggedInUserId}
+                    commentId={comment.id}
                   />
                 );
               })}
