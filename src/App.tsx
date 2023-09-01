@@ -73,7 +73,7 @@ function App() {
     <>
       <div style={{marginLeft: '100px'}}>
         <div>
-          <Comments comments={comments} />
+          <Comments comments={comments} userId={1}/>
         </div>
       </div>
     </>

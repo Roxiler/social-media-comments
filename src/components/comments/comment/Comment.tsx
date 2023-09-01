@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.scss";
-import Home from "../../icons/home-icon/home";
+import Home from "../../icons/home-icon/HomeIcon";
 import { useComments } from "./hooks";
+import Edit from "../../icons/edit-icon/EditIcon";
+import HomeIcon from "../../icons/home-icon/HomeIcon";
+import EditIcon from "../../icons/edit-icon/EditIcon";
+import CommentsIcon from "../../icons/comment-icon/CommentIcon";
+import DeleteIcon from "../../icons/delete-icon/DeleteIcon";
+import CommentsTextbox from "../comment-textbox/CommentsTextbox";
 
 interface IComment {
   data: string;
@@ -9,15 +15,13 @@ interface IComment {
   showReplies?: any;
   editComment?: any;
   deleteComment?: any;
+  makeComment?: any;
+  loggedInUserId: number;
 }
 
 const Comment = (props: IComment) => {
-
-    const {
-        replies,
-        handleShowReplies,
-        isRepliesOpen
-    } = useComments();
+  const { replies, handleShowReplies, isRepliesOpen, handleAddComment } =
+    useComments();
 
   return (
     <div>
@@ -37,33 +41,41 @@ const Comment = (props: IComment) => {
         <div className="comment__text">{props.data}</div>
         <div className="comment__actions">
           <div onClick={() => handleShowReplies(props.showReplies, 1)}>
-            <Home />
+            <CommentsIcon />
           </div>
           <div>
-            <Home />
+            <EditIcon />
           </div>
           <div>
-            <Home />
+            <DeleteIcon />
           </div>
         </div>
         <div className="comment__replies">
-        {
-            isRepliesOpen && replies.length > 0 &&
+          {isRepliesOpen && replies.length > 0 && (
             <div>
-                {replies.map((comment: any, i: number) => {
-            return (
-              <Comment
-              key={i}
-              data={comment.value}
-              comments={comment.comments}
-              showReplies={props.showReplies}
-              editComment={props.editComment}
-              deleteComment={props.deleteComment}
-              />
-            );
-          })}
+              <div>
+                <CommentsTextbox
+                  loggedInUserId={props.loggedInUserId}
+                  handleAddComment={handleAddComment}
+                  makeComment={props.makeComment}
+                />
+              </div>
+              {replies.map((comment: any, i: number) => {
+                return (
+                  <Comment
+                    key={i}
+                    data={comment.value}
+                    comments={comment.comments}
+                    showReplies={props.showReplies}
+                    editComment={props.editComment}
+                    deleteComment={props.deleteComment}
+                    makeComment={props.makeComment}
+                    loggedInUserId={props.loggedInUserId}
+                  />
+                );
+              })}
             </div>
-          }
+          )}
         </div>
       </div>
     </div>

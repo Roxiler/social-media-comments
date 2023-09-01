@@ -39,9 +39,14 @@ export const useComments = () => {
           ]);
     }
 
+    const handleAddComment = (comment: any) => {
+      setReplies([comment, ...replies]);
+    }
+
     return {
         replies,
         handleShowReplies,
-        isRepliesOpen
+        isRepliesOpen,
+        handleAddComment
     }
 };
