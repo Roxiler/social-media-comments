@@ -34,12 +34,14 @@ const Comment = (props: IComment) => {
     setEditCommentText,
     editCommentText,
     handleSaveReply,
-    handleEditText
+    handleEditText,
+    handleDeleteComment
   } = useComments(props);
 
   return (
     <div>
-      <div className="comment__box">
+      { commentText &&
+        <div className="comment__box">
         {/* <div className="comment">{props.data}</div> */}
         {/* <div className="nested_comment">
           {props.comments.map((comment, i) => {
@@ -62,7 +64,7 @@ const Comment = (props: IComment) => {
               <div onClick={() => handleEditReply(props.commentId)}>
                 <EditIcon />
               </div>
-              <div>
+              <div onClick={() => handleDeleteComment(props.commentId)}>
                 <DeleteIcon />
               </div>
             </div>
@@ -122,7 +124,7 @@ const Comment = (props: IComment) => {
             </div>
           )}
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

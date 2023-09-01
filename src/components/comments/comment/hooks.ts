@@ -72,6 +72,11 @@ export const useComments = (props: any) => {
       setCommentText(text);
     }
 
+    const handleDeleteComment = (id: number) => {
+      props.deleteComment(id);
+      setCommentText("");
+    }
+
     return {
       commentText,
         replies,
@@ -83,6 +88,7 @@ export const useComments = (props: any) => {
         setEditCommentText,
         editCommentText,
         handleSaveReply,
-        handleEditText
+        handleEditText,
+        handleDeleteComment
     }
 };
