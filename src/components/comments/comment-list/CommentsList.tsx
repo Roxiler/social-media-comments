@@ -30,9 +30,9 @@ export const CommentsList = (props: ICommentList) => {
             comments.map((comment: any, i: number) => {
               console.log("Current comment: ", comment)
               return (
-                <>
+                // <>
                   <Comment
-                    key={i}
+                    key={`${Math.random().toFixed(5).toString()}-${i}`}
                     data={comment.value}
                     comments={comment.comments}
                     showReplies={props.showCommentReplies}
@@ -41,7 +41,7 @@ export const CommentsList = (props: ICommentList) => {
                     loggedInUserId={props.loggedInUserId}
                     makeComment={props.makeComment}
                   />
-                </>
+                // </>
               );
             })}
         </div>
