@@ -213,7 +213,7 @@ function App() {
 
   return (
     <>
-      <div style={{ marginLeft: "100px" }}>
+      <div className="comment-wrapper">
         {commentsList.length > 0 && (
           <Comments
             comments={commentsList}

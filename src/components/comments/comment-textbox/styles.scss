@@ -1,10 +1,15 @@
 .input-wrapper {
     display: flex;
     align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border: 2px solid grey;
 
 
     input {
         padding: .5em;
         flex: 1;
+        border: none;
+         
     }
 }
