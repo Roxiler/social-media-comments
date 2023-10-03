@@ -3,78 +3,59 @@ import { useEffect, useState } from "react"
 
 export const useComments = (props: any) => {
 
-    const [commentText, setCommentText] = useState("")
-    const [replies, setReplies]: any = useState([]);
+    const [commentText, setCommentText] = useState(props.data)
+    const [replies, setReplies]: any = useState(props.comments);
     const [isRepliesOpen, setIsRepliesOpen] = useState(false);
     const [openEditReply, setOpenEditReply] = useState(false);
     const [commentToEdit, setCommentToEdit]: any = useState();
-    const [editCommentText, setEditCommentText] = useState("");
+    const [editCommentText, setEditCommentText] = useState(props.data);
 
-    useEffect(() => {
-      setCommentText(props.data);
-    }, [])
+    // useEffect(() => {
+    //   setCommentText(props.data);
+    // }, [])
 
-    const handleShowReplies = async (showReplies: any, commentId: number) => {
-        setIsRepliesOpen(!isRepliesOpen);
-        const data = await showReplies(commentId);
-        console.log("DATA", data);
-        setReplies([{
-            id: 11,
-            userName: "AAAA",
-            value: "Comment Reply 1",
-            comments: [
-              {
-                id: 22,
-                userName: "XYZ",
-                value: "all good",
-                comments: [
-                  {
-                    id: 33,
-                    userName: "ABC",
-                    value: "how's your day",
-                    comments: []
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            id: 12,
-            userName: "ZZ",
-            value: "Comment Reply 2",
-            comments: []
-          },
-          ]);
+    const handleShowReplies = async () => {
+        // setIsRepliesOpen(!isRepliesOpen);
+        // console.log("COMMENT ID: ", commentId)
+        const data = await props.showReplies(props.commentId, props.parentComments);
+        console.log("DATA AFTER CALLING SHOW RESPONSE: \n", data);
+        // setReplies(replies);
     }
 
-    const handleAddComment = (comment: any) => {
+    const handleAddComment = async (comment: any) => {
       setReplies([comment, ...replies]);
     }
 
-    const handleEditReply = (id: number | null) => {
+    const handleEditReply = () => {
       setOpenEditReply(!openEditReply);
-      setCommentToEdit(id);
-      if(!id) {
-        setCommentText(props.data);
-      }
+      // setCommentToEdit(id);
+      // if(!id) {
+      //   setCommentText(props.data);
+      // }
     }
 
-    const handleSaveReply = (id: number) => {
-      props.editComment(id);
-      setCommentText(editCommentText);
+    const handleSaveReply = async () => {
+      const newParentComments = [...props.parentComments];
+      newParentComments.pop();
+      const parentId = newParentComments[newParentComments.length - 1] || null;
+      await props.editComment(props.postId, props.commentId, editCommentText, newParentComments);
+      // setCommentText(editCommentText);
       setOpenEditReply(!openEditReply);
-      setCommentToEdit(null);
+      // setCommentToEdit(null);
     }
 
     const handleEditText = (text: string) => {
       console.log('TEXT: ', text);
       setEditCommentText(text);
-      setCommentText(text);
+      // setCommentText(text);
     }
 
-    const handleDeleteComment = (id: number) => {
-      props.deleteComment(id);
-      setCommentText("");
+    const handleDeleteComment = async () => {
+      const newParentComments = [...props.parentComments];
+      newParentComments.pop();
+      const parentId = newParentComments[newParentComments.length - 1] || null;
+      await props.deleteComment(props.postId, props.commentId, parentId, newParentComments);
+      // setCommentText("");
     }
 
     return {
@@ -89,6 +70,7 @@ export const useComments = (props: any) => {
         editCommentText,
         handleSaveReply,
         handleEditText,
-        handleDeleteComment
+        handleDeleteComment,
+        openEditReply
     }
 };

@@ -10,16 +10,19 @@ import DeleteIcon from "../../icons/delete-icon/DeleteIcon";
 import CommentsTextbox from "../comment-textbox/CommentsTextbox";
 import CancelIcon from "../../icons/cancel-icon/CancelIcon";
 import SaveIcon from "../../icons/save-icon/SaveIcon";
+import { CommentsList } from "../comment-list/CommentsList";
 
 interface IComment {
   data: string;
   comments: any[];
+  loggedInUserId: number;
+  postId: any;
+  commentId: number;
+  parentComments: any[];
   showReplies?: any;
   editComment: any;
   deleteComment?: any;
   makeComment?: any;
-  loggedInUserId: number;
-  commentId: number;
 }
 
 const Comment = (props: IComment) => {
@@ -35,12 +38,13 @@ const Comment = (props: IComment) => {
     editCommentText,
     handleSaveReply,
     handleEditText,
-    handleDeleteComment
+    handleDeleteComment,
+    openEditReply
   } = useComments(props);
 
   return (
     <div>
-      { commentText &&
+      {
         <div className="comment__box">
         {/* <div className="comment">{props.data}</div> */}
         {/* <div className="nested_comment">
@@ -54,17 +58,17 @@ const Comment = (props: IComment) => {
             );
           })}
         </div> */}
-        {!commentToEdit ? (
+        {!openEditReply ? (
           <>
             <div className="comment__text">{commentText}</div>
             <div className="comment__actions">
-              <div onClick={() => handleShowReplies(props.showReplies, 1)}>
+              <div onClick={() => handleShowReplies()}>
                 <CommentsIcon />
               </div>
-              <div onClick={() => handleEditReply(props.commentId)}>
+              <div onClick={() => handleEditReply()}>
                 <EditIcon />
               </div>
-              <div onClick={() => handleDeleteComment(props.commentId)}>
+              <div onClick={() => handleDeleteComment()}>
                 <DeleteIcon />
               </div>
             </div>
@@ -75,7 +79,7 @@ const Comment = (props: IComment) => {
             <input
                 type="text"
                 // placeholder='add comment...'
-                value={commentText}
+                value={editCommentText}
                 onChange={(e) => handleEditText(e.target.value)}
                 onKeyUp={(e) => {
                     if (e.code !== "Enter") return
@@ -86,10 +90,10 @@ const Comment = (props: IComment) => {
             />
         </div>
         <div className="comment__actions">
-              <div onClick={() => handleSaveReply(commentToEdit)}>
+              <div onClick={() => handleSaveReply()}>
                 <SaveIcon />
               </div>
-              <div onClick={() => handleEditReply(null)}>
+              <div onClick={() => handleEditReply()}>
                 <CancelIcon />
               </div>
             </div>
@@ -97,9 +101,9 @@ const Comment = (props: IComment) => {
         )}
 
         <div className="comment__replies">
-          {isRepliesOpen && replies.length > 0 && (
+          {
             <div>
-              <div>
+              {/* <div>
                 <CommentsTextbox
                   loggedInUserId={props.loggedInUserId}
                   handleAddComment={handleAddComment}
@@ -111,18 +115,26 @@ const Comment = (props: IComment) => {
                   <Comment
                     key={i}
                     data={comment.value}
-                    comments={comment.comments}
+                    comments={[...comment.comments]}
                     showReplies={props.showReplies}
                     editComment={props.editComment}
                     deleteComment={props.deleteComment}
                     makeComment={props.makeComment}
                     loggedInUserId={props.loggedInUserId}
                     commentId={comment.id}
+                    parentComments={[...props.parentComments, comment.id]}
                   />
                 );
-              })}
+              })} */}
+              <CommentsList 
+                commentData={replies} 
+                // setCommentData={setCommentsData}
+                // loggedInUserId={userId}
+                // parentComments={[]}
+                {...props}
+            />
             </div>
-          )}
+          }
         </div>
       </div>}
     </div>

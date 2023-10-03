@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import "./styles.scss"
 import { useCommentTextbox } from './hooks'
 interface ICommentInputProps {
-    setCommentData?: React.Dispatch<React.SetStateAction<any[]>>
+    // setCommentData?: React.Dispatch<React.SetStateAction<any[]>>
     makeComment: any
     loggedInUserId: number
     handleAddComment: any
+    parentComments: any
 }
 
 
@@ -32,7 +33,8 @@ const CommentsTextbox = (props: ICommentInputProps) => {
             <button onClick={() => {
                 // props.setCommentData(prev => [...prev, { value: comment, comments: [] }]);
                 console.log("Making comment from comment textbox")
-                handleSubmitComment(comment, loggedInUserId, makeComment, handleAddComment);
+                // handleSubmitComment(comment, loggedInUserId, makeComment, handleAddComment);
+                handleAddComment(comment, props.parentComments);
                 addComment("")
             }}>Post</button>
         </div>

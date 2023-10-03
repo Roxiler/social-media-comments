@@ -1,0 +1,33 @@
+.comment__box {
+    border-left: solid red 1px;
+    background-color: rgb(103, 134, 124);
+    margin-bottom: 1rem;
+    width: 300px;
+    
+    .comment {
+        padding: .5em;
+        background-color: rgb(103, 134, 124);
+        margin: .5em 0;
+        border-radius: 0.25em;
+    }
+    
+    .nested_comment {
+        margin-left: .5em;
+    }
+    
+    .comment__text {
+        text-align: start;
+        color: white;
+        padding-left: 1rem;
+    }
+    
+    .comment__actions {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .comment__replies {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+    }
+}

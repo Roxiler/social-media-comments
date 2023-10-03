@@ -5,30 +5,30 @@ export const useCommentTextbox = () => {
     makeComment: any,
     handleAddComment: any
   ) => {
-    const data = await makeComment(comment, userId);
-    console.log("INSIDE CUSTOM HOOK OF COMMENT TEXTBOX")
-    const response = {
-      id: 11,
-      userName: "AAAA",
-      value: comment,
-      comments: [
-        {
-          id: 22,
-          userName: "XYZ",
-          value: "all good",
-          comments: [
-            {
-              id: 33,
-              userName: "ABC",
-              value: "how's your day",
-              comments: [],
-            },
-          ],
-        },
-      ],
-    };
+    // const data = await makeComment(comment, userId);
+    // console.log("INSIDE CUSTOM HOOK OF COMMENT TEXTBOX")
+    // const response = {
+    //   id: 11,
+    //   userName: "AAAA",
+    //   value: comment,
+    //   comments: [
+    //     {
+    //       id: 22,
+    //       userName: "XYZ",
+    //       value: "all good",
+    //       comments: [
+    //         {
+    //           id: 33,
+    //           userName: "ABC",
+    //           value: "how's your day",
+    //           comments: [],
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // };
 
-    handleAddComment(response);
+    handleAddComment(comment);
   };
 
   return {

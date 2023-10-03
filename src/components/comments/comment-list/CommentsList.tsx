@@ -4,26 +4,29 @@ import Comment from "../comment/Comment";
 import { useCommentsList } from "./hooks";
 
 interface ICommentList {
-  commentData: any[];
-  setCommentData: React.Dispatch<React.SetStateAction<any[]>>;
-  showCommentReplies?: any;
+  comments: any[];
+  setCommentData?: React.Dispatch<React.SetStateAction<any[]>>;
+  showReplies?: any;
   editComment: any;
   deleteComment?: any;
   makeComment?: any;
   loggedInUserId: number;
+  postId: any;
+  parentComments: any[];
 }
 
-export const CommentsList = (props: ICommentList) => {
+export const CommentsList = ({loggedInUserId, parentComments, ...props}: any) => {
   const { comments, handleAddComment } = useCommentsList(props);
 
   return (
     <div>
       <div>
         <CommentsTextbox
-          setCommentData={props.setCommentData}
+          // setCommentData={props.setCommentData}
           loggedInUserId={props.loggedInUserId}
           handleAddComment={handleAddComment}
           makeComment={props.makeComment}
+          parentComments={parentComments}
         />
         <div className="comments">
           {comments.length > 0 &&
@@ -34,13 +37,15 @@ export const CommentsList = (props: ICommentList) => {
                   <Comment
                     key={`${Math.random().toFixed(5).toString()}-${i}`}
                     data={comment.value}
-                    comments={comment.comments}
-                    showReplies={props.showCommentReplies}
+                    comments={[...comment.comments]}
+                    loggedInUserId={loggedInUserId}
+                    commentId={comment.id}
+                    parentComments={[...parentComments, comment.id]}
+                    showReplies={props.showReplies}
                     editComment={props.editComment}
                     deleteComment={props.deleteComment}
-                    loggedInUserId={props.loggedInUserId}
                     makeComment={props.makeComment}
-                    commentId={comment.id}
+                    postId={props.postId}
                   />
                 // </>
               );
