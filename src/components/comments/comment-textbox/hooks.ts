@@ -1,34 +1,13 @@
-export const useCommentTextbox = () => {
-  const handleSubmitComment = async (
-    comment: string,
-    userId: number,
-    makeComment: any,
-    handleAddComment: any
-  ) => {
-    // const data = await makeComment(comment, userId);
-    // console.log("INSIDE CUSTOM HOOK OF COMMENT TEXTBOX")
-    // const response = {
-    //   id: 11,
-    //   userName: "AAAA",
-    //   value: comment,
-    //   comments: [
-    //     {
-    //       id: 22,
-    //       userName: "XYZ",
-    //       value: "all good",
-    //       comments: [
-    //         {
-    //           id: 33,
-    //           userName: "ABC",
-    //           value: "how's your day",
-    //           comments: [],
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // };
+export const useCommentTextbox = (props: any) => {
+  const handleSubmitComment = async (comment: string) => {
+    const newParentComments = [...props.parentComments];
+    // newParentComments.pop();
+    // console.log('PARENT COMMENTS: ', props.parentComments);
+    // console.log('NEW PARENT COMMENTS: ', newParentComments);
 
-    handleAddComment(comment);
+    const parentId = newParentComments[newParentComments.length - 1] || null;
+
+    props.makeComment(props.postId, parentId, comment, newParentComments);
   };
 
   return {

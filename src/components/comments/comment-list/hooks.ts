@@ -1,27 +1,16 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
+export const useCommentsList = (comments: any, props: any) => {
+  const [commentsData, setCommentsData]: any = useState(comments);
 
-export const useCommentsList = (props: any) => {
+  const handleAddComment = (comment: any, parentComments: any) => {
+    const parentId = parentComments[parentComments.length - 1] || null;
 
-    const [comments, setComments]: any = useState(props.comments);
-    console.log("COMMENTS PRISMA: ", comments);
+    props.makeComment(props.postId, parentId, comment, parentComments);
+  };
 
-    // useEffect(() => {
-    //     console.log("COMMENTS: ", props.commentData)
-    //     setComments([...props.commentData])
-    // }, []);
-
-    const handleAddComment = (comment: any, parentComments: any) => {
-        console.log("INSIDE COMMENTS LIST: ", comment);
-        // setComments(comment, ...comments);
-        // setComments([comment, ...comments]);
-        const parentId = parentComments[parentComments.length - 1] || null;
-        
-      props.makeComment(props.postId, parentId, comment, parentComments);
-      }
-
-    return {
-        comments,
-        handleAddComment
-    }
-}
+  return {
+    commentsData,
+    handleAddComment,
+  };
+};
