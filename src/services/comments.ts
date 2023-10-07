@@ -14,7 +14,7 @@ export function updateComment({ postId, message, id }: any) {
   })
 }
 
-export function deleteComment({ postId, id }: any) {
+export function onDeleteComment({ postId, id }: any) {
   return makeRequest(`posts/${postId}/comments/${id}`, {
     method: "DELETE",
   })

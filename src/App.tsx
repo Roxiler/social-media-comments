@@ -3,47 +3,59 @@ import { Comments } from "./components";
 import "./styles.scss";
 import {
   createComment,
-  deleteComment,
+  onDeleteComment,
   getCommentsOnPost,
   getRepliesOnComments,
   updateComment,
 } from "./services/comments";
-import _ from "lodash";
 
 const initialComments = [
   {
     id: "14d3479f-61df-4f87-bf24-065dbd5f87f0",
-    userName: "Kyle", // to be changed to commentor
+    commentor: "Kyle",
     actions: ['EDIT', 'DELETE'],
     value: "I am a root comment",
     totalComments: 2,
     comments: [],
-    // add creation time and updation time
-    // add post id here itself
+    createdAt: '2023-10-04T05:22:29.437Z',
+    updatedAt: '2023-10-04T05:22:29.437Z',
+    postId: '15499a21-ac4c-4075-ab39-f1c9e8c70719'
   },
   {
     id: "836911b1-ed36-4807-a776-51c96bdc20a2",
-    userName: "Sally",
+    commentor: "Sally",
     actions: ['DELETE'],
     value: "I am another root comment",
     totalComments: 2,
     comments: [],
+    createdAt: '2023-09-25T05:59:05.100Z',
+    updatedAt: '2023-09-25T05:59:05.100Z',
+    postId: '15499a21-ac4c-4075-ab39-f1c9e8c70719'
   },
 ];
 
-function App() {
-  const [postsList, setPostsList]: any = useState([]);
+const App = () => {
   const [commentsList, setCommentsList]: any = useState(initialComments);
 
-  const handleShowReplies = async (commentId: any, parentComments: any) => {
-    const response = await getRepliesOnComments(commentId);
+  useEffect(() => {
+    getCommentsOnPost("15499a21-ac4c-4075-ab39-f1c9e8c70719");
+  }, [])
+
+  const handleShowReplies = async (comment: any, parentComments: any) => {
+    const response = await getRepliesOnComments(comment.id);
     const responseCommentsList = response.map((comment: any) => {
+      const combos = [['EDIT', 'DELETE'], ['DELETE'], []];
+      const num = Math.floor(Math.random() * 3);
       return {
         id: comment.id,
-        userName: "John Doe",
+        commentor: "John Doe",
         value: comment.message,
         totalComments: comment.children.length,
         comments: [],
+        createdAt: comment.createdAt,
+        updatedAt: comment.updatedAt,
+        postId: comment.postId,
+        actions: combos[num]
       };
     });
     let str: string = "";
@@ -69,32 +81,30 @@ function App() {
     const newArr = getArrayData(commentsList, 0);
     console.log("NEW POST LIST : ", newArr);
     setCommentsList([...newArr]);
-    // setCommentsList(_.cloneDeep(newArr));
 
     return responseCommentsList;
   };
 
   const handleDeleteComment = async (
-    postId: any,
-    commentId: any,
+    // postId: any,
+    comment: any,
     parentId: any,
     parentComments: any
   ) => {
-    console.log("ADDING THE COMMENT");
-    console.log("COMMENT ID: ", commentId);
-    console.log("POST ID: ", postId);
+    console.log("DELETING THE COMMENT", comment);
+    console.log("COMMENT ID: ", comment.id);
+    console.log("POST ID: ", comment.postId);
     console.log("PARENT ID: ", parentId);
     console.log("PARENT COMMENTS ARRAY: ", parentComments);
-    await deleteComment({
-      postId: postId,
-      id: commentId,
+    await onDeleteComment({
+      postId: comment.postId,
+      id: comment.id,
     });
 
     const getArrayData = (comments: any, i: any) => {
       if (i === parentComments.length) {
         const newCommentsArray = comments.filter((c: any) => {
-          console.log("id matching---------------------\n", c.id, commentId);
-          if (c.id !== commentId) {
+          if (c.id !== comment.id) {
             return c;
           }
         });
@@ -116,20 +126,20 @@ function App() {
   };
 
   const handleEditComment = async (
-    postId: string,
-    commentId: any,
+    // postId: string,
+    comment: any,
     text: string,
     parentComments: any
   ) => {
-    console.log("ADDING THE COMMENT");
+    console.log("ADDING THE COMMENT", comment);
     console.log("COMMENT: ", text);
-    console.log("POST ID: ", postId);
-    console.log("COMMENT ID: ", commentId);
+    console.log("POST ID: ", comment.postId);
+    console.log("COMMENT ID: ", comment.id);
     console.log("PARENT COMMENTS ARRAY: ", parentComments);
     const response: any = await updateComment({
-      postId: postId,
+      postId: comment.postId,
       message: text,
-      id: commentId,
+      id: comment.id,
     });
 
     console.log("EDITED COMMENT RESPONSE: ", response);
@@ -138,7 +148,7 @@ function App() {
       if (i === parentComments.length) {
         const newCommentsArray = comments.map((c: any) => {
           // console.log("id matching---------------------\n", c.id, commentId)
-          if (c.id === commentId) {
+          if (c.id === comment.id) {
             c.value = response.message;
             // return c;
           }
@@ -179,13 +189,19 @@ function App() {
     });
 
     console.log("ADDED COMMENT RESPONSE: ", response);
+    const combos = [['EDIT', 'DELETE'], ['DELETE'], []];
+      const num = Math.floor(Math.random() * 3);
 
     const newComment = {
       id: response.id,
-      userName: response.user.name,
+      commentor: response.user.name,
       value: response.message,
       totalComments: 0,
       comments: [],
+      createdAt: response.createdAt,
+        updatedAt: response.updatedAt,
+        postId: response.postId,
+      actions: combos[num]
     };
 
     console.log("ADDED NEW COMMENT: ", newComment);
@@ -217,12 +233,11 @@ function App() {
         {commentsList.length > 0 && (
           <Comments
             comments={commentsList}
-            loggedInUserId={"131e6072-0e8e-41ee-a7fe-e79913061ca6"}
             postId={"15499a21-ac4c-4075-ab39-f1c9e8c70719"}
-            showReplies={handleShowReplies} // onShowReplies - change
-            editComment={handleEditComment} // add 'on' prefix on all actions
-            deleteComment={handleDeleteComment}
-            makeComment={handleAddComment} // onAddComment
+            onShowReplies={handleShowReplies}
+            onEditComment={handleEditComment}
+            onDeleteComment={handleDeleteComment}
+            onAddComment={handleAddComment}
           />
         )}
       </div>

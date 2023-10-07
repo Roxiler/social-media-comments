@@ -7,31 +7,37 @@ import DeleteIcon from "../../icons/delete-icon/DeleteIcon";
 import CommentsTextbox from "../comment-textbox/CommentsTextbox";
 import CancelIcon from "../../icons/cancel-icon/CancelIcon";
 import SaveIcon from "../../icons/save-icon/SaveIcon";
-// import { CommentsList } from "../comment-list/CommentsList";
 import ReplyIcon from "../../icons/reply-icon/ReplyIcon";
 
 interface IComment {
-  data: string;
-  comments: any[];
-  loggedInUserId: number;
-  postId: any;
-  commentId: number;
-  parentComments: any[];
-  showReplies?: any;
-  editComment: any;
-  deleteComment?: any;
-  makeComment?: any;
+  id: string;
+  commentor: string;
+  actions: Array<"EDIT" | "DELETE"> | [];
+  value: string;
+  totalComments: number;
+  comments: IComment[];
+  createdAt: string;
+  updatedAt: string;
+  postId: string;
 }
 
-const Comment = (props: IComment) => {
+interface ICommentProps {
+  data: IComment;
+  postId: string;
+  parentComments: string[];
+  onShowReplies: Function;
+  onEditComment: Function;
+  onDeleteComment: Function;
+  onAddComment: Function;
+}
+
+const Comment: React.FC<ICommentProps> = ({parentComments, data, ...props}) => {
   const {
     commentText,
     replies,
     handleShowReplies,
     isRepliesOpen,
-    handleAddComment,
     handleEditReply,
-    commentToEdit,
     setEditCommentText,
     editCommentText,
     handleSaveReply,
@@ -39,7 +45,8 @@ const Comment = (props: IComment) => {
     handleDeleteComment,
     openEditReply,
     handleOpenReplyTextbox,
-  } = useComments(props);
+    actions,
+  } = useComments(parentComments, data, props);
 
   return (
     <div>
@@ -55,12 +62,16 @@ const Comment = (props: IComment) => {
                 <div onClick={() => handleShowReplies()}>
                   <CommentsIcon />
                 </div>
-                <div onClick={() => handleEditReply()}>
-                  <EditIcon />
-                </div>
-                <div onClick={() => handleDeleteComment()}>
-                  <DeleteIcon />
-                </div>
+                {actions.includes("EDIT") && (
+                  <div onClick={() => handleEditReply()}>
+                    <EditIcon />
+                  </div>
+                )}
+                {actions.includes("DELETE") && (
+                  <div onClick={() => handleDeleteComment()}>
+                    <DeleteIcon />
+                  </div>
+                )}
               </div>
             </>
           ) : (
@@ -93,11 +104,8 @@ const Comment = (props: IComment) => {
                 <div>
                   {isRepliesOpen && (
                     <CommentsTextbox
-                      // setCommentData={props.setCommentData}
-                      loggedInUserId={props.loggedInUserId}
-                      handleAddComment={props.makeComment}
-                      makeComment={props.makeComment}
-                      parentComments={props.parentComments}
+                      onAddComment={props.onAddComment}
+                      parentComments={parentComments}
                       postId={props.postId}
                     />
                   )}
@@ -105,27 +113,13 @@ const Comment = (props: IComment) => {
                 {replies.map((comment: any, i: number) => {
                   return (
                     <Comment
-                      key={i}
-                      data={comment.value}
-                      comments={[...comment.comments]}
-                      showReplies={props.showReplies}
-                      editComment={props.editComment}
-                      deleteComment={props.deleteComment}
-                      makeComment={props.makeComment}
-                      loggedInUserId={props.loggedInUserId}
-                      postId={props.postId}
-                      commentId={comment.id}
-                      parentComments={[...props.parentComments, comment.id]}
+                      key={`${Math.random().toFixed(5).toString()}-${i}`}
+                      data={comment}
+                      parentComments={[...parentComments, comment.id]}
+                      {...props}
                     />
                   );
                 })}
-                {/* <CommentsList
-                  commentData={replies}
-                  // setCommentData={setCommentsData}
-                  // loggedInUserId={userId}
-                  // parentComments={[]}
-                  {...props}
-                /> */}
               </div>
             }
           </div>

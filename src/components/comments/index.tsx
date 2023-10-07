@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from "react";
-// import { CommentsList } from "./comment-list/CommentsList";
 import CommentsTextbox from "./comment-textbox/CommentsTextbox";
 import Comment from "./comment/Comment";
 
-interface Props {
-  comments: any[];
-  loggedInUserId: any;
-  postId: any;
-  showReplies: any;
-  editComment: any;
-  deleteComment: any;
-  makeComment: any;
+interface IComment {
+  id: string;
+  commentor: string;
+  actions: Array<"EDIT" | "DELETE"> | [];
+  value: string;
+  totalComments: number;
+  comments: IComment[];
+  createdAt: string;
+  updatedAt: string;
+  postId: string;
 }
 
-export const Comments: React.FC<Props> = ({ comments, loggedInUserId, ...props }) => {
+interface IProps {
+  comments: IComment[];
+  postId: string;
+  onShowReplies: Function;
+  onEditComment: Function;
+  onDeleteComment: Function;
+  onAddComment: Function;
+}
+
+export const Comments: React.FC<IProps> = ({ comments, ...props }) => {
   const [commentsData, setCommentsData]: any = useState(comments);
 
   return (
     <div>
       <CommentsTextbox
-        loggedInUserId={loggedInUserId}
-        handleAddComment={props.makeComment}
-        makeComment={props.makeComment}
+        onAddComment={props.onAddComment}
         parentComments={[]}
         postId={props.postId}
       />
@@ -29,19 +37,13 @@ export const Comments: React.FC<Props> = ({ comments, loggedInUserId, ...props }
         <div className="comments">
           {commentsData.length > 0 &&
             commentsData.map((comment: any, i: number) => {
-              console.log("Current comment: ", comment);
               return (
-                // <>
                 <Comment
                   key={`${Math.random().toFixed(5).toString()}-${i}`} // comment id to be used
-                  data={comment.value} // pass the entire comment itself and remove comment id prop
-                  comments={[...comment.comments]}
-                  loggedInUserId={loggedInUserId}
-                  commentId={comment.id}
+                  data={comment}
                   parentComments={[comment.id]}
                   {...props}
                 />
-                // </>
               );
             })}
         </div>
