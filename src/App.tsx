@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Comments } from "./components";
+import { Comments } from ".";
 import "./styles.scss";
 import {
   createComment,

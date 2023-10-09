@@ -19,6 +19,7 @@ const CommentsTextbox: React.FC<ICommentInputProps> = (props) => {
         placeholder="add comment..."
         value={comment}
         onChange={(e) => setComment(e.target.value)}
+        autoFocus
       />
       <button
         onClick={() => {
