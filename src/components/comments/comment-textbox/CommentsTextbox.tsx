@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./styles.scss";
 import { useCommentTextbox } from "./hooks";
 interface ICommentInputProps {
@@ -8,9 +8,8 @@ interface ICommentInputProps {
 }
 
 const CommentsTextbox: React.FC<ICommentInputProps> = (props) => {
-  const [comment, setComment] = useState("");
 
-  const { handleSubmitComment } = useCommentTextbox(props);
+  const { comment, setComment, handleSubmitComment } = useCommentTextbox(props);
 
   return (
     <div className="input-wrapper">
@@ -23,7 +22,6 @@ const CommentsTextbox: React.FC<ICommentInputProps> = (props) => {
       />
       <button
         onClick={() => {
-          console.log("Making comment from comment textbox");
           handleSubmitComment(comment);
           setComment("");
         }}

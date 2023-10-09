@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 
 export const useComments = (parentComments: any, data: any, props: any) => {
-  const [commentText, setCommentText] = useState(data.value);
-  const [replies, setReplies]: any = useState(data.comments);
+  const [commentText, setCommentText] = useState('');
+  const [replies, setReplies]: any = useState([]);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [openEditReply, setOpenEditReply] = useState(false);
-  const [commentToEdit, setCommentToEdit]: any = useState();
-  const [editCommentText, setEditCommentText] = useState(data.value);
-  const [actions, setActions]: any = useState(data.actions);
+  const [editCommentText, setEditCommentText] = useState('');
+  const [actions, setActions]: any = useState([]);
+
+  useEffect(() => {
+    setCommentText(data.value);
+    setReplies(data.comments);
+    setActions(data.actions);
+    setEditCommentText(data.value)
+  }, [])
 
   const handleShowReplies = async () => {
     await props.onShowReplies(data, parentComments);
@@ -45,7 +51,6 @@ export const useComments = (parentComments: any, data: any, props: any) => {
     handleShowReplies,
     isRepliesOpen,
     handleEditReply,
-    commentToEdit,
     setEditCommentText,
     editCommentText,
     handleSaveReply,

@@ -24,7 +24,11 @@ interface IProps {
 }
 
 export const Comments: React.FC<IProps> = ({ comments, ...props }) => {
-  const [commentsData, setCommentsData]: any = useState(comments);
+  const [commentsData, setCommentsData]: any = useState([]);
+
+  useEffect(() => {
+    setCommentsData(comments);
+  })
 
   return (
     <div>

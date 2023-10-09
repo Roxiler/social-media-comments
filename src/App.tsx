@@ -58,10 +58,6 @@ const App = () => {
         actions: combos[num]
       };
     });
-    let str: string = "";
-    for (let s of parentComments) {
-      str += `\["${s}"\]\["comments"\]`;
-    }
 
     const getArrayData = (comments: any, i: any) => {
       if (i >= parentComments.length) {
@@ -70,7 +66,6 @@ const App = () => {
 
       comments.forEach((comment: any) => {
         if (comment.id === parentComments[i]) {
-          console.log("match : ", i, " ", comment);
           comment.comments = getArrayData(comment.comments, i + 1);
         }
       });
@@ -79,7 +74,6 @@ const App = () => {
     };
 
     const newArr = getArrayData(commentsList, 0);
-    console.log("NEW POST LIST : ", newArr);
     setCommentsList([...newArr]);
 
     return responseCommentsList;
@@ -91,11 +85,6 @@ const App = () => {
     parentId: any,
     parentComments: any
   ) => {
-    console.log("DELETING THE COMMENT", comment);
-    console.log("COMMENT ID: ", comment.id);
-    console.log("POST ID: ", comment.postId);
-    console.log("PARENT ID: ", parentId);
-    console.log("PARENT COMMENTS ARRAY: ", parentComments);
     await onDeleteComment({
       postId: comment.postId,
       id: comment.id,
@@ -121,33 +110,23 @@ const App = () => {
     };
 
     const newArr = getArrayData(commentsList, 0);
-    console.log("NEW POST LIST : ", newArr);
     setCommentsList([...newArr]);
   };
 
   const handleEditComment = async (
-    // postId: string,
     comment: any,
     text: string,
     parentComments: any
   ) => {
-    console.log("ADDING THE COMMENT", comment);
-    console.log("COMMENT: ", text);
-    console.log("POST ID: ", comment.postId);
-    console.log("COMMENT ID: ", comment.id);
-    console.log("PARENT COMMENTS ARRAY: ", parentComments);
     const response: any = await updateComment({
       postId: comment.postId,
       message: text,
       id: comment.id,
     });
 
-    console.log("EDITED COMMENT RESPONSE: ", response);
-
     const getArrayData = (comments: any, i: any) => {
       if (i === parentComments.length) {
         const newCommentsArray = comments.map((c: any) => {
-          // console.log("id matching---------------------\n", c.id, commentId)
           if (c.id === comment.id) {
             c.value = response.message;
             // return c;
@@ -167,7 +146,6 @@ const App = () => {
     };
 
     const newArr = getArrayData(commentsList, 0);
-    console.log("NEW POST LIST : ", newArr);
     setCommentsList([...newArr]);
   };
 
@@ -177,18 +155,12 @@ const App = () => {
     text: string,
     parentComments: any
   ) => {
-    console.log("ADDING THE COMMENT");
-    console.log("COMMENT: ", text);
-    console.log("POST ID: ", postId);
-    console.log("PARENT ID: ", parentId);
-    console.log("PARENT COMMENTS ARRAY: ", parentComments);
     const response: any = await createComment({
       postId: postId,
       message: text,
       parentId: parentId,
     });
 
-    console.log("ADDED COMMENT RESPONSE: ", response);
     const combos = [['EDIT', 'DELETE'], ['DELETE'], []];
       const num = Math.floor(Math.random() * 3);
 
@@ -204,8 +176,6 @@ const App = () => {
       actions: combos[num]
     };
 
-    console.log("ADDED NEW COMMENT: ", newComment);
-
     const getArrayData = (comments: any, i: any) => {
       if (i == parentComments.length) {
         const newCommentsArray = [newComment, ...comments];
@@ -214,7 +184,6 @@ const App = () => {
 
       comments.forEach((comment: any) => {
         if (comment.id === parentComments[i]) {
-          console.log("match : ", i, " ", comment);
           comment.comments = getArrayData(comment.comments, i + 1);
         }
       });
@@ -223,7 +192,6 @@ const App = () => {
     };
 
     const newArr = getArrayData(commentsList, 0);
-    console.log("NEW POST LIST : ", newArr);
     setCommentsList([...newArr]);
   };
 

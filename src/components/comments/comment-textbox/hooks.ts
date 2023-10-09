@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 export const useCommentTextbox = (props: any) => {
+
+  const [comment, setComment] = useState("");
+
   const handleSubmitComment = async (comment: string) => {
     const newParentComments = [...props.parentComments];
     const parentId = newParentComments[newParentComments.length - 1] || null;
@@ -7,5 +12,7 @@ export const useCommentTextbox = (props: any) => {
 
   return {
     handleSubmitComment,
+    comment,
+    setComment
   };
 };
