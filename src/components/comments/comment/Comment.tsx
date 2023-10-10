@@ -33,6 +33,7 @@ interface ICommentProps {
 
 const Comment: React.FC<ICommentProps> = ({parentComments, data, ...props}) => {
   const {
+    user,
     commentText,
     replies,
     handleShowReplies,
@@ -54,7 +55,7 @@ const Comment: React.FC<ICommentProps> = ({parentComments, data, ...props}) => {
         <div className="comment__box">
           {!openEditReply ? (
             <>
-              <div className="comment__text">{commentText}</div>
+              <div className="comment__text"><div className="commentor">{user} </div><div>{commentText}</div></div>
               <div className="comment__actions">
                 <div onClick={() => handleOpenReplyTextbox()}>
                   <ReplyIcon />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useComments = (parentComments: any, data: any, props: any) => {
+  const [user,setUser]=useState('')
   const [commentText, setCommentText] = useState('');
   const [replies, setReplies]: any = useState([]);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
@@ -9,6 +10,7 @@ export const useComments = (parentComments: any, data: any, props: any) => {
   const [actions, setActions]: any = useState([]);
 
   useEffect(() => {
+    setUser(data.commentor)
     setCommentText(data.value);
     setReplies(data.comments);
     setActions(data.actions);
@@ -46,6 +48,7 @@ export const useComments = (parentComments: any, data: any, props: any) => {
   };
 
   return {
+    user,
     commentText,
     replies,
     handleShowReplies,
