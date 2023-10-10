@@ -1,8 +1,7 @@
 .comment__box {
     // border-left: solid red 1px;
-    background-color: rgb(248, 255, 253);
     margin: 1rem 0 0.3rem 0;
-    border: 1px solid rgb(120, 224, 59);
+    // border: 1px solid rgb(120, 224, 59);
     padding: 20px 10px 10px 10px;
     
     .comment {
@@ -20,13 +19,14 @@
     .comment__text {
         text-align: start;
         padding-left: 1rem;
+        color: rgb(61, 61, 61);
     }
     
     .comment__actions {
         display: flex;
         justify-content: space-around;
-        padding: 9px 0px 0px 0px;
-        border: 1px solid orange;
+        padding: 12px 0px 0px 0px;
+        // border: 1px solid orange;
     }
 
     .comment__replies {

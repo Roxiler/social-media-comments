@@ -1,17 +1,17 @@
 import { IconProps } from "../Icon.types";
 
-const ReplyIcon = ({ color, size = 20 }: IconProps) => (
+const ReplyIcon = ({ color='#9e9e9e', size = 20 }: IconProps) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
-    style={{ marginTop: "10px" }}
-    width={size}
-    height={size}
-    className="icon"
-    viewBox="0 0 30 30"
-    color={color}
-  >
-    <path d="M 15 3 C 7.82 3 2 7.925 2 14 C 2 17.368 3.7933281 20.378484 6.6113281 22.396484 C 6.6832805 23.932468 6.4452784 26.053382 4.3261719 27.03125 A 0.5 0.5 0 0 0 4.3222656 27.033203 A 0.5 0.5 0 0 0 4 27.5 A 0.5 0.5 0 0 0 4.5 28 C 4.5119372 28 4.5232366 27.998109 4.5351562 27.998047 A 0.5 0.5 0 0 0 4.5429688 27.998047 C 6.9769949 27.982445 9.0432734 26.667034 10.46875 25.277344 C 10.92075 24.836344 11.550875 24.619328 12.171875 24.736328 C 13.081875 24.909328 14.028 25 15 25 C 22.18 25 28 20.075 28 14 C 28 7.925 22.18 3 15 3 z"></path>
-  </svg>
+  xmlns="http://www.w3.org/2000/svg"
+  xmlSpace="preserve"
+  width={size}
+  height={size}
+  viewBox="0 0 512 512"
+  style={{marginTop:"8px"}}
+  fill={color}
+>
+  <path d="M185.2 128.6V19.7L0 204.9l185.2 185.2v-109c152.5 0 250.5 0 326.8 217.9 0-108.9 10.9-370.4-326.8-370.4z" />
+</svg>
 );
 
 export default ReplyIcon;
