@@ -11,7 +11,7 @@ import {
 
 const initialComments = [
   {
-    id: "14d3479f-61df-4f87-bf24-065dbd5f87f0",
+    id: "5654c533-5c94-478d-9725-17dbf8dea2f8",
     commentor: "Kyle",
     actions: ['EDIT', 'DELETE'],
     value: "I am a root comment",
@@ -19,10 +19,10 @@ const initialComments = [
     comments: [],
     createdAt: '2023-10-04T05:22:29.437Z',
     updatedAt: '2023-10-04T05:22:29.437Z',
-    postId: '15499a21-ac4c-4075-ab39-f1c9e8c70719'
+    postId: 'b5733ece-23a5-43ed-9c8e-6d2a7e11f31e'
   },
   {
-    id: "836911b1-ed36-4807-a776-51c96bdc20a2",
+    id: "d31cd2e3-42f6-4da0-8971-abbff3f726f2",
     commentor: "Sally",
     actions: ['DELETE'],
     value: "I am another root comment",
@@ -30,7 +30,7 @@ const initialComments = [
     comments: [],
     createdAt: '2023-09-25T05:59:05.100Z',
     updatedAt: '2023-09-25T05:59:05.100Z',
-    postId: '15499a21-ac4c-4075-ab39-f1c9e8c70719'
+    postId: 'b5733ece-23a5-43ed-9c8e-6d2a7e11f31e'
   },
 ];
 
@@ -38,7 +38,7 @@ const App = () => {
   const [commentsList, setCommentsList]: any = useState(initialComments);
 
   useEffect(() => {
-    getCommentsOnPost("15499a21-ac4c-4075-ab39-f1c9e8c70719");
+    getCommentsOnPost("b5733ece-23a5-43ed-9c8e-6d2a7e11f31e");
   }, [])
 
   const handleShowReplies = async (comment: any, parentComments: any) => {
@@ -201,7 +201,7 @@ const App = () => {
         {commentsList.length > 0 && (
           <Comments
             comments={commentsList}
-            postId={"15499a21-ac4c-4075-ab39-f1c9e8c70719"}
+            postId={"b5733ece-23a5-43ed-9c8e-6d2a7e11f31e"}
             onShowReplies={handleShowReplies}
             onEditComment={handleEditComment}
             onDeleteComment={handleDeleteComment}

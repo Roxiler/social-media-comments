@@ -8,6 +8,7 @@ import CommentsTextbox from "../comment-textbox/CommentsTextbox";
 import CancelIcon from "../../icons/cancel-icon/CancelIcon";
 import SaveIcon from "../../icons/save-icon/SaveIcon";
 import ReplyIcon from "../../icons/reply-icon/ReplyIcon";
+import {postedDate }from "../postedTime/postedtime"
 
 interface IComment {
   id: string;
@@ -55,13 +56,14 @@ const Comment: React.FC<ICommentProps> = ({parentComments, data, ...props}) => {
         <div className="comment__box">
           {!openEditReply ? (
             <>
-              <div className="comment__text"><div className="commentor">{user} </div><div>{commentText}</div></div>
+              <div className="commentorDetails" ><div className="commentor">{user} </div><div className="postedDate">{ postedDate(data?.createdAt)}</div></div>
+              <div className="comment__text">{commentText}</div>
               <div className="comment__actions">
                 <div onClick={() => handleOpenReplyTextbox()}>
                   <ReplyIcon />
                 </div>
                 <div onClick={() => handleShowReplies()}>
-                  <CommentsIcon />
+                  {/* <CommentsIcon /> */} <div>___</div> Show Replies
                 </div>
                 {actions.includes("EDIT") && (
                   <div onClick={() => handleEditReply()}>

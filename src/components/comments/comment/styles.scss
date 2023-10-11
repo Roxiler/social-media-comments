@@ -16,7 +16,7 @@
         margin-left: .5em;
     }
     
-    .comment__text {
+    .commentorDetails {
         display: flex;
         gap: 20px;
         text-align: start;
@@ -25,14 +25,21 @@
         .commentor{
             font-weight: 600;
         }
+        .postedDate{
+            color: grey;
+            font-size: 15px;
+        }
         
+    }
+    .comment__text{
+        margin-left: 17px;
+        font-size: 16px;
     }
     
     .comment__actions {
         display: flex;
         justify-content: space-around;
         padding: 12px 0px 0px 0px;
-        // border: 1px solid orange;
     }
 
     .comment__replies {
