@@ -36,6 +36,7 @@ export const Comments: React.FC<IProps> = ({ comments, ...props }) => {
         onAddComment={props.onAddComment}
         parentComments={[]}
         postId={props.postId}
+        type="Post"
       />
       <div>
         <div className="comments">
