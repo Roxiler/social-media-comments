@@ -1,12 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.scss";
 import { useComments } from "./hooks";
-import EditIcon from "../../icons/edit-icon/EditIcon";
-import CommentsIcon from "../../icons/comment-icon/CommentIcon";
-import DeleteIcon from "../../icons/delete-icon/DeleteIcon";
 import CommentsTextbox from "../comment-textbox/CommentsTextbox";
-import CancelIcon from "../../icons/cancel-icon/CancelIcon";
-import SaveIcon from "../../icons/save-icon/SaveIcon";
 import ReplyIcon from "../../icons/reply-icon/ReplyIcon";
 import {postedDate }from "../postedTime/postedtime"
 
@@ -51,38 +46,53 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
     totalComments
   } = useComments(parentComments, data, props);
 
+  const [showActions, setShowActions] = useState(false)
+
   return (
     <div>
       {
         <div className="comment__box">
           {!openEditReply ? (
             <>
-              <div className="commentorDetails" ><div className="commentor">{user} </div><div className="postedDate">{ postedDate(data?.createdAt)}</div></div>
+              <div className="commentorDetails" >
+                <div className="commentor">{user}
+                </div>
+                <div className="postedDate">{ postedDate(data?.createdAt)}
+                </div>
+              </div>
+
               <div className="comment__text">{commentText}</div>
+
               <div className="comment__actions">
                 <div onClick={() => handleOpenReplyTextbox()}>
                   <ReplyIcon />
                 </div>
-               
-                {actions.includes("EDIT") && (
-                  <div onClick={() => handleEditReply()}>
-                    <EditIcon />
-                  </div>
-                )}
-                {actions.includes("DELETE") && (
-                  <div onClick={() => handleDeleteComment()}>
-                    <DeleteIcon />
-                  </div>
-                )}
+                <div onClick={(()=>setShowActions(!showActions))} className="moreActions">
+                  <span></span><span></span><span></span>
+                  {showActions && 
+                    <div className="more__actions">
+                      {actions.includes("EDIT") && (
+                      <div onClick={() => handleEditReply()}>
+                        Edit
+                      </div>
+                      )}
+                      {actions.includes("DELETE") && (
+                      <div onClick={() => handleDeleteComment()}>
+                        Delete
+                      </div>
+                      )}
+                    </div>
+                  }
+                </div>
               </div>
               <div className="replies__count" >
               <div className="showReplies" onClick={() => handleShowReplies()}>
-                  {/* <CommentsIcon /> */} {totalComments?<><div>____</div><div>view {totalComments} reply</div></>:null} 
+                {totalComments>0?<><div>____</div> <div>view {totalComments} reply{totalComments > 1 ? 's' : ''}</div></>:null} 
                 </div>
               </div>
             </>
           ) : (
-            <>
+            <div className="edit__wrapper">
               <div className="input-wrapper">
                 <input
                   type="text"
@@ -94,15 +104,15 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
                   }}
                 />
               </div>
-              <div className="comment__actions">
-                <div onClick={() => handleSaveReply()}>
-                  <SaveIcon />
-                </div>
-                <div onClick={() => handleEditReply()}>
-                  <CancelIcon />
-                </div>
+              <div className="update__actions">
+                <button  onClick={() => handleSaveReply()}>
+                  {/* <SaveIcon /> */} Update
+                </button>
+                <button onClick={() => handleEditReply()}>
+                  {/* <CancelIcon /> */} Cancel
+                </button>
               </div>
-            </>
+            </div>
           )}
 
           <div className="comment__replies">
