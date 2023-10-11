@@ -48,6 +48,7 @@ const Comment: React.FC<ICommentProps> = ({parentComments, data, ...props}) => {
     openEditReply,
     handleOpenReplyTextbox,
     actions,
+    totalComments
   } = useComments(parentComments, data, props);
 
   return (
@@ -62,9 +63,7 @@ const Comment: React.FC<ICommentProps> = ({parentComments, data, ...props}) => {
                 <div onClick={() => handleOpenReplyTextbox()}>
                   <ReplyIcon />
                 </div>
-                <div onClick={() => handleShowReplies()}>
-                  {/* <CommentsIcon /> */} <div>___</div> Show Replies
-                </div>
+               
                 {actions.includes("EDIT") && (
                   <div onClick={() => handleEditReply()}>
                     <EditIcon />
@@ -75,6 +74,11 @@ const Comment: React.FC<ICommentProps> = ({parentComments, data, ...props}) => {
                     <DeleteIcon />
                   </div>
                 )}
+              </div>
+              <div className="replies__count" >
+              <div className="showReplies" onClick={() => handleShowReplies()}>
+                  {/* <CommentsIcon /> */} {totalComments?<><div>____</div><div>view {totalComments} reply</div></>:null} 
+                </div>
               </div>
             </>
           ) : (
