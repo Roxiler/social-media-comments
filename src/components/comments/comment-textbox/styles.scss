@@ -1,17 +1,32 @@
 .input-wrapper {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 10px;
-    
+    gap: 0 0.5em;
+    margin-bottom: 1em;
+    position: relative;
 
+    &::after {
+        position: absolute;
+        content: " ";
+        bottom: -0.5em;
+        height: 1px;
+        width: 100%;
+        background-color: #5457b6;
+    }
 
     input {
-        padding: .5em;
+        padding: 0.5em;
         flex: 1;
-        border-bottom: 2px solid grey;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: inherit;
     }
-    input:focus { 
-        outline:none; 
+
+    button {
+        border-radius: 0.25em;
+        padding: .25em auto;
+        background-color: #5457b6;
+        color: white;
     }
 }

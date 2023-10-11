@@ -32,7 +32,7 @@ interface ICommentProps {
   onAddComment: Function;
 }
 
-const Comment: React.FC<ICommentProps> = ({parentComments, data, ...props}) => {
+const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) => {
   const {
     user,
     commentText,
@@ -114,6 +114,7 @@ const Comment: React.FC<ICommentProps> = ({parentComments, data, ...props}) => {
                       onAddComment={props.onAddComment}
                       parentComments={parentComments}
                       postId={props.postId}
+                      type="Reply"
                     />
                   )}
                 </div>

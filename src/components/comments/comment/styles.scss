@@ -1,14 +1,16 @@
 .comment__box {
     margin: 1rem 0 0.3rem 0;
     padding: 20px 10px 10px 10px;
-    
+    background-color: white;
+    color: black;
+
     .comment {
         padding: .5em;
         background-color: rgb(237, 255, 249);
         margin: .5em 0;
         border-radius: 0.25em;
     }
-    
+
     .nested_comment {
         margin-left: .5em;
     }  

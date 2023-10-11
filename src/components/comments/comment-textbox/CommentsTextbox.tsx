@@ -5,6 +5,7 @@ interface ICommentInputProps {
   onAddComment: Function;
   parentComments: string[];
   postId: string;
+  type: "Reply" | "Post"
 }
 
 const CommentsTextbox: React.FC<ICommentInputProps> = (props) => {
@@ -15,7 +16,7 @@ const CommentsTextbox: React.FC<ICommentInputProps> = (props) => {
     <div className="input-wrapper">
       <input
         type="text"
-        placeholder="add comment..."
+        placeholder="Add Comment..."
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         autoFocus
@@ -26,7 +27,7 @@ const CommentsTextbox: React.FC<ICommentInputProps> = (props) => {
           setComment("");
         }}
       >
-        Post
+        {props.type === "Reply" ? "Reply" : "Post"}
       </button>
     </div>
   );
