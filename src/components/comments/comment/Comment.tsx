@@ -87,7 +87,7 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
               <div className="comment__text">{commentText}</div>
 
               <div className="comment__actions">
-                <div onClick={() => handleOpenReplyTextbox()}>
+                <div onClick={() => { handleOpenReplyTextbox(); setShowActions(false) }}>
                   <ReplyIcon />
                 </div>
               </div>
