@@ -1,6 +1,7 @@
+import React from "react";
 import { IconProps } from "../Icon.types";
 
-const DeleteIcon = ({ color='#9e9e9e', size = 20 }: IconProps) => (
+const DeleteIcon = ({ color = '#9e9e9e', size = 20 }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     style={{ marginTop: "10px" }}

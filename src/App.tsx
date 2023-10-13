@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Comments } from ".";
 import "./styles.scss";
 import {
@@ -162,7 +162,7 @@ const App = () => {
     });
 
     const combos = [['EDIT', 'DELETE'], ['DELETE'], []];
-      const num = Math.floor(Math.random() * 3);
+    const num = Math.floor(Math.random() * 3);
 
     const newComment = {
       id: response.id,
@@ -171,8 +171,8 @@ const App = () => {
       totalComments: 0,
       comments: [],
       createdAt: response.createdAt,
-        updatedAt: response.updatedAt,
-        postId: response.postId,
+      updatedAt: response.updatedAt,
+      postId: response.postId,
       actions: combos[num]
     };
 

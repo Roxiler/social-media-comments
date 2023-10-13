@@ -1,6 +1,7 @@
+import React from "react";
 import { IconProps } from "../Icon.types";
 
-const HomeIcon = ({ color='#9e9e9e', size = 30 }: IconProps) => (
+const HomeIcon = ({ color = '#9e9e9e', size = 30 }: IconProps) => (
   <svg
     style={{ marginTop: "10px" }}
     width={size}
