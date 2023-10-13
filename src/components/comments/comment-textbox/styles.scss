@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     gap: 0 0.5em;
-    margin: 0.5em 0 ;
+    margin: 0.5em;
     position: relative;
 
     &::after {
@@ -24,9 +24,18 @@
     }
 
     button {
-        border-radius: 0.25em;
-        padding: .25em auto;
         background-color: #5457b6;
+        border-radius: 0.25em;
+        border: none;
+        padding: 0.5em 1em;
+        font-size: 16px;
+        font-weight: 500;
+        font-family: inherit;
         color: white;
+        cursor: pointer;
     }
+}
+
+.nested-input-wapper {
+    margin: 0.5em 0 !important;
 }

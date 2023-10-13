@@ -1,5 +1,5 @@
 .comment__box {
-    margin: 1rem 0 0.3rem 0;
+    margin: 1em 0;
     padding: 20px 10px 10px 10px;
     background-color: white;
     color: black;
@@ -13,71 +13,86 @@
 
     .nested_comment {
         margin-left: .5em;
-    }  
+    }
+
     .commentorDetails {
         display: flex;
         gap: 20px;
-        text-align: start;
-        padding-left: 1rem;
-        color: rgb(61, 61, 61);
-        .commentor{
-            font-weight: 600;
-        }
-        .postedDate{
-            color: grey;
-            font-size: 15px;
-        } 
-    }
-    .comment__text{
-        margin-left: 17px;
-        font-size: 16px;
-    } 
-    .comment__actions {
-        display: flex;
-        position: relative;
         align-items: center;
-        padding: 0 0 0 1em;
-        justify-content: space-between;
-        .moreActions{
-           display: flex;
-           gap: 2px;
-           cursor: pointer;
-           position: relative;
-           align-items: center;
-           span{
-            height: 4px;
-            border-radius: 50%;
-            background-color: #9e9e9e;
-            width: 4px;
-           }
-         .more__actions{
-            position: absolute;
-            z-index: 5;
-            left: -200%;
-            top: 140%;
-            bottom: -350%;
-            & > div{
-                padding: 4px;
-                font-size: 14px;
-                cursor: pointer;
-                color: #9e9e9e;
-                transition: all ease .5s;
-                
-                &:hover{
-                    color: #383838;
+        color: rgb(61, 61, 61);
+
+        .comment__meta {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0 .5em;
+
+            .commentor {
+                font-weight: 600;
+            }
+
+            .postedDate {
+                color: grey;
+                font-size: 15px;
+            }
+        }
+
+        .moreActions {
+            display: flex;
+            gap: 2px;
+            cursor: pointer;
+            position: relative;
+            align-items: center;
+
+            span {
+                height: 4px;
+                border-radius: 50%;
+                background-color: #9e9e9e;
+                width: 4px;
+            }
+
+            .more__actions {
+                position: absolute;
+                z-index: 5;
+                left: -200%;
+                top: 140%;
+                bottom: -350%;
+
+                &>div {
+                    padding: 4px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    color: #9e9e9e;
+                    transition: all ease .5s;
+
+                    &:hover {
+                        color: #383838;
+                    }
                 }
             }
-        }  
-        } 
+        }
+
     }
+
+    .comment__text {
+        font-size: 16px;
+    }
+
+    .comment__actions {
+        display: flex;
+        align-items: center;
+    }
+
     .comment__replies {
         margin-bottom: 1rem;
         padding-left: 2rem;
     }
-    .replies__count{
+
+    .replies__count {
         width: 90%;
         margin: auto;
-        .showReplies{
+
+        .showReplies {
             cursor: pointer;
             display: flex;
             margin-top: 8px;
@@ -85,26 +100,35 @@
             font-size: 14px;
             color: grey;
         }
-        .showReplies :nth-child(1){
+
+        .showReplies :nth-child(1) {
             margin-top: -7px;
         }
 
     }
-    .edit__wrapper{
-        height:100px;
-        .update__actions{
+
+    .edit__wrapper {
+        height: 100px;
+
+        .update__actions {
             display: flex;
             width: fit-content;
             float: right;
-            gap:.5em ;
-            padding: .5em 0 ;
+            gap: .5em;
+            padding: .5em 0;
+
             button {
-                border-radius: 0.25em;
-                padding: .25em auto;
                 background-color: #5457b6;
+                border-radius: 0.25em;
+                border: none;
+                padding: 0.5em 1em;
+                font-size: 16px;
+                font-weight: 500;
+                font-family: inherit;
                 color: white;
+                cursor: pointer;
             }
         }
     }
-    
+
 }

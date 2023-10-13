@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 
 export const useComments = (parentComments: any, data: any, props: any) => {
-  const [user,setUser]=useState('')
-  const [totalComments,setTotalComments]=useState(Number)
+  const [user,setUser] = useState('')
+  const [totalComments,setTotalComments] = useState(Number)
   const [commentText, setCommentText] = useState('');
   const [replies, setReplies]: any = useState([]);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [openEditReply, setOpenEditReply] = useState(false);
   const [editCommentText, setEditCommentText] = useState('');
   const [actions, setActions]: any = useState([]);
+  const [showActions, setShowActions] = useState(false)
 
   useEffect(() => {
     setUser(data.commentor)
@@ -64,6 +65,9 @@ export const useComments = (parentComments: any, data: any, props: any) => {
     openEditReply,
     handleOpenReplyTextbox,
     actions,
-    totalComments
+    totalComments,
+    showActions,
+    setShowActions,
+    setIsRepliesOpen
   };
 };

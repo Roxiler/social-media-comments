@@ -13,7 +13,7 @@ const CommentsTextbox: React.FC<ICommentInputProps> = (props) => {
   const { comment, setComment, handleSubmitComment } = useCommentTextbox(props);
 
   return (
-    <div className="input-wrapper">
+    <div className={`input-wrapper ${props.type === "Reply" ? 'nested-input-wapper' : ''}`}>
       <input
         type="text"
         placeholder="Add Comment..."

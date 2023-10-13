@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import "./styles.scss";
 import { useComments } from "./hooks";
 import CommentsTextbox from "../comment-textbox/CommentsTextbox";
 import ReplyIcon from "../../icons/reply-icon/ReplyIcon";
-import {postedDate }from "../postedTime/postedtime"
+import { postedDate } from "../postedTime/postedtime"
 
 interface IComment {
   id: string;
@@ -43,10 +43,11 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
     openEditReply,
     handleOpenReplyTextbox,
     actions,
-    totalComments
+    totalComments,
+    setShowActions,
+    showActions,
+    setIsRepliesOpen
   } = useComments(parentComments, data, props);
-
-  const [showActions, setShowActions] = useState(false)
 
   return (
     <div>
@@ -55,9 +56,31 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
           {!openEditReply ? (
             <>
               <div className="commentorDetails" >
-                <div className="commentor">{user}
+                <div className="comment__meta">
+                  <div className="commentor">{user}
+                  </div>
+                  <div className="postedDate">{postedDate(data?.createdAt)}
+                  </div>
                 </div>
-                <div className="postedDate">{ postedDate(data?.createdAt)}
+                <div onClick={(() => {
+                  setShowActions(!showActions);
+                  setIsRepliesOpen(false)
+                })} className="moreActions">
+                  <span></span><span></span><span></span>
+                  {showActions &&
+                    <div className="more__actions">
+                      {actions.includes("EDIT") && (
+                        <div onClick={() => handleEditReply()}>
+                          Edit
+                        </div>
+                      )}
+                      {actions.includes("DELETE") && (
+                        <div onClick={() => handleDeleteComment()}>
+                          Delete
+                        </div>
+                      )}
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -67,29 +90,12 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
                 <div onClick={() => handleOpenReplyTextbox()}>
                   <ReplyIcon />
                 </div>
-                <div onClick={(()=>setShowActions(!showActions))} className="moreActions">
-                  <span></span><span></span><span></span>
-                  {showActions && 
-                    <div className="more__actions">
-                      {actions.includes("EDIT") && (
-                      <div onClick={() => handleEditReply()}>
-                        Edit
-                      </div>
-                      )}
-                      {actions.includes("DELETE") && (
-                      <div onClick={() => handleDeleteComment()}>
-                        Delete
-                      </div>
-                      )}
-                    </div>
-                  }
-                </div>
               </div>
-              <div className="replies__count" >
-              <div className="showReplies" onClick={() => handleShowReplies()}>
-                {totalComments>0?<><div>____</div> <div>view {totalComments} reply{totalComments > 1 ? 's' : ''}</div></>:null} 
+              {!isRepliesOpen && <div className="replies__count" >
+                <div className="showReplies" onClick={() => handleShowReplies()}>
+                  {totalComments > 0 ? <><div>____</div> <div>view {totalComments} reply{totalComments > 1 ? 's' : ''}</div></> : null}
                 </div>
-              </div>
+              </div>}
             </>
           ) : (
             <div className="edit__wrapper">
@@ -105,11 +111,11 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
                 />
               </div>
               <div className="update__actions">
-                <button  onClick={() => handleSaveReply()}>
-                  {/* <SaveIcon /> */} Update
+                <button onClick={() => handleSaveReply()}>
+                  Update
                 </button>
                 <button onClick={() => handleEditReply()}>
-                  {/* <CancelIcon /> */} Cancel
+                  Cancel
                 </button>
               </div>
             </div>
@@ -119,7 +125,7 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
             {
               <div>
                 <div>
-                  {isRepliesOpen && (
+                  {isRepliesOpen && !showActions && (
                     <CommentsTextbox
                       onAddComment={props.onAddComment}
                       parentComments={parentComments}
@@ -143,7 +149,7 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
           </div>
         </div>
       }
-    </div>
+    </div >
   );
 };
 
