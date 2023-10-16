@@ -93,7 +93,7 @@ const Comment: React.FC<ICommentProps> = ({ parentComments, data, ...props }) =>
               </div>
               {!isRepliesOpen && <div className="replies__count" >
                 <div className="showReplies" onClick={() => handleShowReplies()}>
-                  {totalComments > 0 ? <><div>____</div> <div>view {totalComments} reply{totalComments > 1 ? 's' : ''}</div></> : null}
+                  {totalComments > 0 ? <><div>____</div> <div>view {totalComments} {totalComments > 1 ? 'replys' : 'reply'}</div></> : null}
                 </div>
               </div>}
             </>
